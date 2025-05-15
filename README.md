@@ -4,8 +4,11 @@ The goal is to provide an interface as close as possible to the
 [google-play-scraper](https://github.com/facundoolano/google-play-scraper) module.
 
 ## Installation
+
+Clone the repository:
 ```
-npm install app-store-scraper
+git clone https://github.com/zhoujunjie221/app-store-api
+cd app-store-api
 ```
 
 ## Usage

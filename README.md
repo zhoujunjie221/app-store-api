@@ -21,6 +21,97 @@ Available methods:
 - [ratings](#ratings): Retrieves the ratings for the app.
 - [versionHistory](#versionHistory): Retrieves the version history for the app.
 
+## API Server
+
+This package can also be used as a REST API server with authentication.
+
+### Setup
+
+1. Install dependencies:
+   ```
+   npm install
+   ```
+
+2. Create a `.env` file in the root directory with the following content:
+   ```
+   API_KEY=akeochou221
+   PORT=3000
+   ```
+
+3. Start the server:
+   ```
+   npm start
+   ```
+
+### Authentication
+
+All API requests require an API key to be included in the request headers:
+
+```
+x-api-key: your_secret_api_key_here
+```
+
+### API Endpoints
+
+| Endpoint | Description | Parameters |
+|----------|-------------|------------|
+| `GET /app/:id` | Get app details | `id`: App ID<br>Query params: `country`, `lang`, `ratings` |
+| `GET /list/:collection` | Get app collection | `collection`: Collection name<br>Query params: `category`, `country`, `num` |
+| `GET /search` | Search for apps | Query params: `term`, `num`, `page`, `country`, `lang` |
+| `GET /developer/:devId` | Get developer apps | `devId`: Developer ID<br>Query params: `country`, `lang` |
+| `GET /privacy/:id` | Get app privacy details | `id`: App ID |
+| `GET /reviews/:id` | Get app reviews | `id`: App ID<br>Query params: `country`, `page`, `sort` |
+| `GET /similar/:id` | Get similar apps | `id`: App ID<br>Query params: `country` |
+| `GET /version-history/:id` | Get app version history | `id`: App ID<br>Query params: `country` |
+
+### Example Request
+
+```bash
+curl -H "x-api-key: your_secret_api_key_here" http://localhost:3000/app/553834731
+```
+
+### Example Response
+
+```json
+{
+  "id": 553834731,
+  "appId": "com.midasplayer.apps.candycrushsaga",
+  "title": "Candy Crush Saga",
+  "url": "https://itunes.apple.com/us/app/candy-crush-saga/id553834731?mt=8&uo=4",
+  "description": "Candy Crush Saga, from the makers of Candy Crush ...",
+  "icon": "http://is5.mzstatic.com/image/thumb/Purple30/v4/7a/e4/a9/7ae4a9a9-ff68-cbe4-eed6-fe0a246e625d/source/512x512bb.jpg",
+  "genres": [ "Games", "Entertainment", "Puzzle", "Arcade" ],
+  "genreIds": [ "6014", "6016", "7012", "7003" ],
+  "primaryGenre": "Games",
+  "primaryGenreId": 6014,
+  "contentRating": "4+",
+  "languages": [ "EN", "JA" ],
+  "size": "73974859",
+  "requiredOsVersion": "5.1.1",
+  "released": "2012-11-14T14:41:32Z",
+  "updated": "2016-05-31T06:39:52Z",
+  "releaseNotes": "We are back with a tasty Candy Crush Saga update ...",
+  "version": "1.76.1",
+  "price": 0,
+  "currency": "USD",
+  "free": true,
+  "developerId": 526656015,
+  "developer": "King",
+  "developerUrl": "https://itunes.apple.com/us/developer/king/id526656015?uo=4",
+  "developerWebsite": undefined,
+  "score": 4,
+  "reviews": 818816,
+  "currentVersionScore": 4.5,
+  "currentVersionReviews": 1323,
+  "screenshots": [
+    "http://a3.mzstatic.com/us/r30/Purple49/v4/7a/8a/a0/7a8aa0ec-976d-801f-0bd9-7b753fdaf93c/screen1136x1136.jpeg",
+    "..."
+  ]
+}
+```
+
+### Method Documentation
+
 ### app
 Retrieves the full detail of an application. Options:
 

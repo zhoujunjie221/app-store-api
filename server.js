@@ -11,7 +11,7 @@ if (!process.env.API_KEY) {
 }
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 // API密钥验证中间件
 const authMiddleware = (req, res, next) => {

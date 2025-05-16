@@ -38,7 +38,7 @@ This package can also be used as a REST API server with authentication.
 2. Create a `.env` file in the root directory with the following content:
    ```
    echo "API_KEY=your_api_key_here" > .env
-   echo "PORT=8080" >> .env
+   echo "PORT=8081" >> .env
    ```
 
 3. Start the server:

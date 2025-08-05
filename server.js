@@ -42,7 +42,17 @@ app.get('/app/:id', async (req, res) => {
 
 app.get('/list/:collection', async (req, res) => {
   try {
-    const result = await store.list({ collection: req.params.collection, ...req.query });
+    // 预处理参数：转换数字类型
+    const params = {
+      collection: req.params.collection,
+      ...req.query
+    };
+
+    // 显式转换数字参数
+    if (params.category) params.category = Number(params.category);
+    if (params.num) params.num = Number(params.num);
+    
+    const result = await store.list(params);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -30,13 +30,38 @@ const authMiddleware = (req, res, next) => {
 app.use(express.json());
 app.use(authMiddleware);
 
+// 全局错误处理中间件
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  res.status(500).json({ 
+    error: 'Internal server error',
+    details: err.message || 'Unknown error'
+  });
+});
+
 // 路由设置
 app.get('/app/:id', async (req, res) => {
   try {
+    console.log('Requesting app with id:', req.params.id);
     const result = await store.app({ id: req.params.id, ...req.query });
     res.json(result);
   } catch (error) {
-    res.status(error.message.includes('404') ? 404 : 500).json({ error: error.message });
+    console.error('Error in /app/:id route:', error);
+    console.error('Error type:', typeof error);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    
+    let statusCode = 500;
+    let errorMessage = 'Internal server error';
+    
+    if (error && typeof error.message === 'string') {
+      errorMessage = error.message;
+      if (error.message.includes('404') || error.message.includes('not found')) {
+        statusCode = 404;
+      }
+    }
+    
+    res.status(statusCode).json({ error: errorMessage });
   }
 });
 

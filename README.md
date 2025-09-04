@@ -67,14 +67,56 @@ x-api-key: your_secret_api_key_here
 | `GET /similar/:id` | Get similar apps | `id`: App ID<br>Query params: `country` |
 | `GET /version-history/:id` | Get app version history | `id`: App ID<br>Query params: `country` |
 
-### Example Request
+### Example Requests
 
+#### 1. Get App Details
 ```bash
-curl -H "x-api-key: your_secret_api_key_here" http://localhost:3000/app/553834731
+curl -H "x-api-key: your_secret_api_key_here" http://localhost:8081/app/553834731
 ```
 
-### Example Response
+#### 2. Get App Details with Ratings
+```bash
+curl -H "x-api-key: your_secret_api_key_here" "http://localhost:8081/app/553834731?ratings=true"
+```
 
+#### 3. Search for Apps
+```bash
+curl -H "x-api-key: your_secret_api_key_here" "http://localhost:8081/search?term=candy%20crush&num=5&country=us"
+```
+
+#### 4. Get App Collection (Top Free Games)
+```bash
+curl -H "x-api-key: your_secret_api_key_here" "http://localhost:8081/list/topfreeapplications?category=6014&num=10&country=us"
+```
+
+#### 5. Get Developer Apps
+```bash
+curl -H "x-api-key: your_secret_api_key_here" "http://localhost:8081/developer/526656015?country=us"
+```
+
+#### 6. Get App Reviews
+```bash
+curl -H "x-api-key: your_secret_api_key_here" "http://localhost:8081/reviews/553834731?page=1&sort=recent&country=us"
+```
+
+#### 7. Get Similar Apps
+```bash
+curl -H "x-api-key: your_secret_api_key_here" "http://localhost:8081/similar/553834731?country=us"
+```
+
+#### 8. Get App Privacy Details
+```bash
+curl -H "x-api-key: your_secret_api_key_here" "http://localhost:8081/privacy/553834731"
+```
+
+#### 9. Get App Version History
+```bash
+curl -H "x-api-key: your_secret_api_key_here" "http://localhost:8081/version-history/553834731?country=us"
+```
+
+### Example Responses
+
+#### Success Response (App Details)
 ```json
 {
   "id": 553834731,
@@ -101,17 +143,139 @@ curl -H "x-api-key: your_secret_api_key_here" http://localhost:3000/app/55383473
   "developerId": 526656015,
   "developer": "King",
   "developerUrl": "https://itunes.apple.com/us/developer/king/id526656015?uo=4",
-  "developerWebsite": undefined,
+  "developerWebsite": null,
   "score": 4,
   "reviews": 818816,
   "currentVersionScore": 4.5,
   "currentVersionReviews": 1323,
   "screenshots": [
-    "http://a3.mzstatic.com/us/r30/Purple49/v4/7a/8a/a0/7a8aa0ec-976d-801f-0bd9-7b753fdaf93c/screen1136x1136.jpeg",
-    "..."
+    "http://a3.mzstatic.com/us/r30/Purple49/v4/7a/8a/a0/7a8aa0ec-976d-801f-0bd9-7b753fdaf93c/screen1136x1136.jpeg"
   ]
 }
 ```
+
+#### Error Responses
+
+**401 Unauthorized (Missing or Invalid API Key)**
+```json
+{
+  "error": "Unauthorized - Invalid API Key"
+}
+```
+
+**404 Not Found (App Not Found)**
+```json
+{
+  "error": "App not found (404)"
+}
+```
+
+**500 Internal Server Error**
+```json
+{
+  "error": "Internal server error",
+  "details": "Error message details"
+}
+```
+
+### Complete API Usage Guide
+
+#### Using with JavaScript/Node.js
+```javascript
+const axios = require('axios');
+
+const API_BASE_URL = 'http://localhost:8081';
+const API_KEY = 'your_secret_api_key_here';
+
+const headers = {
+  'x-api-key': API_KEY,
+  'Content-Type': 'application/json'
+};
+
+// Get app details
+async function getAppDetails(appId) {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/app/${appId}`, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error.response?.data || error.message);
+  }
+}
+
+// Search for apps
+async function searchApps(term, num = 10) {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/search`, {
+      headers,
+      params: { term, num }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error.response?.data || error.message);
+  }
+}
+
+// Usage examples
+getAppDetails('553834731').then(console.log);
+searchApps('candy crush', 5).then(console.log);
+```
+
+#### Using with Python
+```python
+import requests
+
+API_BASE_URL = 'http://localhost:8081'
+API_KEY = 'your_secret_api_key_here'
+
+headers = {
+    'x-api-key': API_KEY,
+    'Content-Type': 'application/json'
+}
+
+def get_app_details(app_id):
+    try:
+        response = requests.get(f'{API_BASE_URL}/app/{app_id}', headers=headers)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f'Error: {e}')
+        return None
+
+def search_apps(term, num=10):
+    try:
+        params = {'term': term, 'num': num}
+        response = requests.get(f'{API_BASE_URL}/search', headers=headers, params=params)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f'Error: {e}')
+        return None
+
+# Usage examples
+app_data = get_app_details('553834731')
+search_results = search_apps('candy crush', 5)
+```
+
+#### Available Collections for /list endpoint
+- `topfreeapplications` - Top Free Apps
+- `toppaidapplications` - Top Paid Apps
+- `topgrossingapplications` - Top Grossing Apps
+- `newfreeapplications` - New Free Apps
+- `newpaidapplications` - New Paid Apps
+
+#### Available Categories (use with /list endpoint)
+- `6014` - Games
+- `6016` - Entertainment
+- `6017` - Education
+- `6018` - Photo & Video
+- `6020` - Medical
+- `6021` - Music
+- `6022` - Productivity
+- `6023` - Business
+- `6024` - Reference
+- `6025` - Travel
+- `6026` - Utilities
+- `6027` - Weather
 
 ### Method Documentation
 

@@ -1,0 +1,462 @@
+{
+  "info": {
+    "name": "App Store API",
+    "description": "Complete collection of App Store API endpoints for testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "your_secret_api_key_here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "App Details",
+      "item": [
+        {
+          "name": "Get App Details - Candy Crush",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/app/553834731",
+              "host": ["{{baseUrl}}"],
+              "path": ["app", "553834731"]
+            }
+          }
+        },
+        {
+          "name": "Get App Details with Ratings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/app/553834731?ratings=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["app", "553834731"],
+              "query": [
+                {
+                  "key": "ratings",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get App Details - Different Country",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/app/553834731?country=cn&lang=zh",
+              "host": ["{{baseUrl}}"],
+              "path": ["app", "553834731"],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "cn"
+                },
+                {
+                  "key": "lang",
+                  "value": "zh"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "item": [
+        {
+          "name": "Search Apps - Candy Crush",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/search?term=candy%20crush&num=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "term",
+                  "value": "candy crush"
+                },
+                {
+                  "key": "num",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Apps - Puzzle Games",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/search?term=puzzle%20game&num=20&page=1&country=us",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "term",
+                  "value": "puzzle game"
+                },
+                {
+                  "key": "num",
+                  "value": "20"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "country",
+                  "value": "us"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Collections",
+      "item": [
+        {
+          "name": "Top Free Apps",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/list/topfreeapplications?num=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["list", "topfreeapplications"],
+              "query": [
+                {
+                  "key": "num",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Top Free Games",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/list/topfreeapplications?category=6014&num=15",
+              "host": ["{{baseUrl}}"],
+              "path": ["list", "topfreeapplications"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "6014"
+                },
+                {
+                  "key": "num",
+                  "value": "15"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Top Paid Apps",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/list/toppaidapplications?num=10&country=us",
+              "host": ["{{baseUrl}}"],
+              "path": ["list", "toppaidapplications"],
+              "query": [
+                {
+                  "key": "num",
+                  "value": "10"
+                },
+                {
+                  "key": "country",
+                  "value": "us"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Developer",
+      "item": [
+        {
+          "name": "King Apps (Candy Crush Developer)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/526656015",
+              "host": ["{{baseUrl}}"],
+              "path": ["developer", "526656015"]
+            }
+          }
+        },
+        {
+          "name": "Facebook Apps",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/284882218?country=us",
+              "host": ["{{baseUrl}}"],
+              "path": ["developer", "284882218"],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "us"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reviews & Ratings",
+      "item": [
+        {
+          "name": "Get App Reviews - Recent",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reviews/553834731?sort=recent&page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["reviews", "553834731"],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "recent"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get App Reviews - Helpful",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reviews/553834731?sort=helpful&page=1&country=us",
+              "host": ["{{baseUrl}}"],
+              "path": ["reviews", "553834731"],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "helpful"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "country",
+                  "value": "us"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Additional Info",
+      "item": [
+        {
+          "name": "Get Similar Apps",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/similar/553834731",
+              "host": ["{{baseUrl}}"],
+              "path": ["similar", "553834731"]
+            }
+          }
+        },
+        {
+          "name": "Get App Privacy",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/privacy/553834731",
+              "host": ["{{baseUrl}}"],
+              "path": ["privacy", "553834731"]
+            }
+          }
+        },
+        {
+          "name": "Get Version History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/version-history/553834731",
+              "host": ["{{baseUrl}}"],
+              "path": ["version-history", "553834731"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error Testing",
+      "item": [
+        {
+          "name": "Test 404 - Invalid App ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/app/invalid_id_12345",
+              "host": ["{{baseUrl}}"],
+              "path": ["app", "invalid_id_12345"]
+            }
+          }
+        },
+        {
+          "name": "Test 401 - Invalid API Key",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "invalid_api_key",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/app/553834731",
+              "host": ["{{baseUrl}}"],
+              "path": ["app", "553834731"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
